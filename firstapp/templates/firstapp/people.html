@@ -1,0 +1,22 @@
+{% extends 'firstapp/base.html' %}
+
+{% block content %}
+
+  {% if user.is_authenticated %}
+    <h1>All people</h1>
+
+    {% for person in user_model %}
+      {% if person.username == user.username %}
+
+      {% else %}
+        <h1>{{person.username}}</h1>
+        <a href="{% url 'firstapp:message' person_id=person.id %}">message</a>
+      {% endif %}
+
+    {% endfor %}
+
+  {% else %}
+    <a href="{% url 'login_app:user_login' %}">Already have account</a>
+  {% endif %}
+
+{% endblock %}

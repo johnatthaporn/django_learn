@@ -1,0 +1,41 @@
+{% extends 'firstapp/base.html' %}
+
+{% block content %}
+  {% if user.username == person.username %}
+    <h1>To {{person.username}}</h1>
+    <h2 class="w3-text-red">You cannot send message to you</h2>
+  {% else %}
+
+    <h1>To {{person.username}}</h1>
+    <div class="w3-container w3-border">
+      {% for message in all_message %}
+
+          {% if message.user_sender.username == user.username %}
+            <p>
+              <h2>{{message.user_sender}}</h2>
+              <h4 class="w3-container w3-cell w3-blue w3-round-large">{{message.text}}</h4>
+            </p>
+          {% else %}
+          <div class="w3-container">
+            <div class="w3-container w3-right">
+              <div class="w3-container">
+                <h2 class="w3-right">{{message.user_sender}}</h2>
+              </div>
+              <div class="w3-container">
+                <h4 class="w3-container w3-round w3-cell w3-grey w3-right">{{message.text}}</h4>
+              </div>
+            </div>
+          </div>
+
+          {% endif %}
+
+      {% endfor %}
+    </div>
+
+    <form method="post">
+      {% csrf_token %}
+      {{form.as_p}}
+      <input type="submit" name="" value="Submit">
+    </form>
+  {% endif %}
+{% endblock %}

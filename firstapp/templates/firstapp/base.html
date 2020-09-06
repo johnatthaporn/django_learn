@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static "css/w3style.css" %}" />
+    <title></title>
+  </head>
+  <body>
+    <div class="w3-content" style="max-width:1300px">
+      <div class="w3-bar w3-black">
+        <a href="{% url 'index' %}" class="w3-button w3-bar-item">Home</a>
+        <a href="{% url 'firstapp:people'%}" class="w3-button w3-bar-item">People</a>
+        {% if user.is_authenticated %}
+          <a href="{% url 'login_app:user_logout' %}" class="w3-button w3-bar-item w3-right">Logout</a>
+        {% else %}
+          <a href="{% url 'login_app:user_login' %}" class="w3-button w3-bar-item w3-right">Login</a>
+          <a href="{% url 'signup'%}" class="w3-button w3-bar-item w3-right">Signup</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="w3-content" style="max-width:1200px">
+      {% block content %}
+
+      {% endblock %}
+    </div>
+
+
+  </body>
+</html>
